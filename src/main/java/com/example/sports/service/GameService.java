@@ -16,17 +16,21 @@ import java.util.UUID;
 @Transactional
 public class GameService { //service 는 도메인 검증과 같은 핵심 비즈니스로직만 포함한다.
 
-        private final GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
-        public Game save(RequestGameDto dto) {
-            Game game = RequestGameDto.toEntity(dto);
-            return gameRepository.save(game);
-        }
+    public Game save(RequestGameDto dto) {
+        Game game = RequestGameDto.toEntity(dto);
+
+        //game 생성할때 좌석도 생성을 해야함.
+
+        return gameRepository.save(game);
+    }
 
     @Transactional(readOnly = true)
     public List<Game> findAll() {
         return gameRepository.findAll();
     }
+
     @Transactional(readOnly = true)
     public Game findById(UUID id) {
 
